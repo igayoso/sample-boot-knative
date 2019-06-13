@@ -24,7 +24,7 @@ class MessageHandler {
             logger.info("Handling message: {}", m)
             counter.increment()
             Mono
-                    .fromCallable { MessageAck(id = m.id, received = m.payload, ack = "ack", hello = "INO") }
+                    .fromCallable { MessageAck(id = m.id, received = m.payload, ack = "ack", hello = "World!") }
                     .delayElement(Duration.ofMillis(m.delay))
                     .flatMap { messageAck ->
                         if (m.throwException) {
