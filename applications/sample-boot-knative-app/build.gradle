@@ -2,6 +2,7 @@ buildscript {
     ext {
         kotlinVersion = '1.2.60'
         springBootVersion = '2.0.4.RELEASE'
+        wrapperVersion = '1.0.21.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -11,6 +12,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
@@ -28,6 +30,7 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'org.springframework.boot.experimental.thin-launcher'
 apply plugin: 'io.spring.dependency-management'
 
 
@@ -56,12 +59,17 @@ compileTestKotlin {
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+		exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+	}
+	compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
+
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    runtime("io.micrometer:micrometer-registry-prometheus")
+    // runtime("io.micrometer:micrometer-registry-prometheus")
 
     compile("org.springframework.cloud:spring-cloud-starter-sleuth")
     compile("org.springframework.cloud:spring-cloud-starter-zipkin")

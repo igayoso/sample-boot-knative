@@ -10,4 +10,4 @@ spec:
         spec:
           serviceAccountName: build
           container:
-            image: algo.azurecr.io/sample-boot-knative:latest
+            image: bijukunjummen/sample-boot-knative-app:0.0.3-SNAPSHOT

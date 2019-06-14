@@ -4,7 +4,9 @@ metadata:
   name: sample-boot-knative-service
   namespace: default
 spec:
-  runLatest:
+  release:
+    revisions: ["sample-boot-knative-service-9c4hm", "sample-boot-knative-service-fhpdj"]
+    rolloutPercent: 20
     configuration:
       revisionTemplate:
         spec:
