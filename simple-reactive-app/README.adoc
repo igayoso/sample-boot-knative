@@ -1,0 +1,36 @@
+# Simple Reactive Application
+
+A sample demonstrating using https://github.com/knative/serving[knative serving] for a https://spring.io/projects/spring-boot[Spring Boot 2] app deployment
+
+
+= Running it locally
+
+Start app using the following command:
+
+[source, bash]
+----
+./gradlew clean bootRun
+----
+
+or
+
+[source, bash]
+----
+./gradlew clean build
+java -jar ./build/libs/simple-reactive-app-0.0.1-SNAPSHOT.jar
+----
+
+or
+
+[source, bash]
+----
+docker build -t myorg/myapp .
+docker run -p 8080:8080 myorg/myapp
+----
+
+### Endpoints
+
+```text
+http://localhost:8080/
+http://localhost:8080/api
+```
